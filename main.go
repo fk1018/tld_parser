@@ -1,10 +1,25 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"math"
+	"log"
+	"os"
 )
 
 func main() {
-	fmt.Printf("Now you have %g problems.\n", math.Sqrt(49))
+	file, err := os.Open("tld.dat")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
 }
